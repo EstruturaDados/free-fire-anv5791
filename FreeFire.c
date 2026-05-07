@@ -177,6 +177,7 @@ int main() {
         printf("\n\n1. Adicionar Item\n");
         printf("2. Remover Item\n");
         printf("3. Listar Itens\n");
+        printf("4. Buscar Item por Nome\n");
         printf("0. Sair do Programa\n");
         printf("\n--------------------------------------------\n");
         printf("Escolha uma opcao: ");
@@ -186,23 +187,48 @@ int main() {
         // Chama a funcao correspondente a opcao escolhida.
         switch (opcao) {
             case 1:
+                // Opcao 1: adicionar um item novo ou somar quantidade se o item ja existir.
                 printf("\n--- Adicionar Novo Item ---\n");
                 inserirItem(mochila, &contador);
                 listarItens(mochila, contador);
                 break;
             case 2:
+                // Opcao 2: remover quantidade de um item ou apagar o item se a quantidade chegar a zero.
                 printf("\n--- Remover Item ---\n");
                 removerItem(mochila, &contador);
                 listarItens(mochila, contador);
                 break;
             case 3:
+                // Opcao 3: exibir a lista atual de itens na mochila.
                 printf("\n--- Listar Itens ---\n");
                 listarItens(mochila, contador);
                 break;
+            case 4:
+                // Opcao 4: buscar um item pelo nome e mostrar seus dados.
+                printf("\n--- Buscar Item na Mochila ---\n");
+                {
+                    char nomeBusca[TAM_NOME];
+                    lerTexto("Digite o nome do item que deseja buscar: ", nomeBusca, TAM_NOME);
+                    int posicao = buscarItem(mochila, contador, nomeBusca);
+                    if (posicao != -1) {
+                        printf("\n--- Item Encontrado! ---\n");
+                        printf("Nome: %s\n", mochila[posicao].nome);
+                        printf("Tipo: %s\n", mochila[posicao].tipo);
+                        printf("Quantidade: %d\n", mochila[posicao].quantidade);
+                        printf("--------------------------\n");
+                    } else {
+                        printf("Item nao encontrado na mochila.\n");
+                    }
+                    printf("\nPressione Enter para continuar...");
+                    getchar();
+                }
+                break;
             case 0:
+                // Opcao 0: sair do programa.
                 printf("Saindo...\n");
                 break;
             default:
+                // Qualquer outro valor invalido retorna ao menu.
                 printf("Opcao invalida! Tente novamente.\n");
                 break;
         }
